@@ -1,0 +1,10 @@
+services:
+    debug-db:
+        build: .
+        container_name: "${CONTAINER_NAME}"
+        environment:
+            POSTGRES_DB: "${PSQL_DB}"
+            POSTGRES_USER: "${PSQL_USER}"
+            POSTGRES_PASSWORD: "${PSQL_PASSWORD}"            
+        ports:
+            - "${PSQL_PORT}:5432"
