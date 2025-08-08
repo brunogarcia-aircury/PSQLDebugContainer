@@ -1,10 +1,12 @@
 services:
     debug-db:
-        build: .
+        build:
+            args:
+                POSTGRES_DB: $PSQL_DB
+                POSTGRES_USER: $PSQL_USER
+                POSTGRES_PASSWORD: $PSQL_PASSWORD
         container_name: "${CONTAINER_NAME}"
-        environment:
-            POSTGRES_DB: "${PSQL_DB}"
-            POSTGRES_USER: "${PSQL_USER}"
-            POSTGRES_PASSWORD: "${PSQL_PASSWORD}"            
+        volumes:
+            - ./postgres:/usr/src/postgres
         ports:
             - "${PSQL_PORT}:5432"
