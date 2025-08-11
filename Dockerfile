@@ -29,6 +29,8 @@ RUN useradd -m $POSTGRES_USER && \
 # Initialize the database
 USER $POSTGRES_USER
 RUN initdb -D "$PGDATA" && \
+    echo "listen_addresses='*'" >> "$PGDATA/postgresql.conf" && \
+    echo "host all all 0.0.0.0/0 md5" >> "$PGDATA/pg_hba.conf" && \
     pg_ctl -D "$PGDATA" start && \
     createdb "$POSTGRES_DB" && \
     psql -d $POSTGRES_DB -c "ALTER USER $POSTGRES_USER WITH PASSWORD '$POSTGRES_PASSWORD';" && \
